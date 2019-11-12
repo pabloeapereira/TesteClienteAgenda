@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TesteClienteAgenda.Application.ViewModels.ClienteViewModel>
+
+@{
+    ViewData["Title"] = "Listagem de Clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create">Novo Cliente</a>
+</p>
+<div class="container">
+    <form asp-action="Index" asp-controller="Clientes"
+          data-ajax="true"
+          data-ajax-method="POST"
+          data-ajax-mode="replace"
+          data-ajax-update="#list-clientes">
+        <label class="control-label">CNPJ</label>
+        <input id="cnpj" name="Cnpj" />
+
+        <label class="control-label">Razão Social</label>
+        <input id="razaoSocial" name="RazaoSocial" />
+
+        <label class="form-check-label">
+            <input type="checkbox"  id="ativo" name="StatusCliente"value="True" checked="checked"/>Ativo
+        </label>
+
+
+
+        <input type="submit" value="Pesquisar" class="btn btn-primary " id="btnPesquisar" />
+    </form>
+
+
+</div>
+<div id="list-clientes">
+    @{await Html.RenderPartialAsync("_ListClientes");}
+</div>

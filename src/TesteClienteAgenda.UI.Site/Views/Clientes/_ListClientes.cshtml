@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TesteClienteAgenda.Application.ViewModels.ClienteViewModel>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cnpj)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RazaoSocial)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataFundacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Capital)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CnpjFormatado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RazaoSocial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataFundacao)
+            </td>
+
+            <td>
+            @Html.DisplayFor(modelItem => item.Capital)
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                <a asp-action="ManageAgenda" asp-route-id="@item.Id">
+                    <img src="icons/ficheiro.png" height="25" width="25" />
+                </a>
+                <a asp-action="Edit" asp-route-id="@item.Id">
+                    <img src="icons/editar.png" height="25" width="25" />
+                </a>
+                <a asp-action="Delete" asp-route-id="@item.Id">
+                    <img src="icons/excluir.png" height="25" width="25" />
+                </a>
+            </td>
+        </tr>
+    }
+
+    </tbody>
+</table>

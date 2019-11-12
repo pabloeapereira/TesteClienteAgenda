@@ -1,0 +1,18 @@
+﻿@model TesteClienteAgenda.Application.ViewModels.ClienteViewModel
+
+<div class="container">
+        <input type="hidden" asp-for="Id" />
+        @using (Html.BeginForm("ImportarArquivo", "Clientes", FormMethod.Post, new { enctype = "multipart/form-data"}))
+        {
+            @Html.ValidationSummary()
+
+            @Html.TextBoxFor(m => m.Arquivo, new
+            {
+                type = "file"
+            })
+            @Html.Hidden("id", Model.Id)
+            <input type="submit" value="Importar" class="btn btn-secondary" />
+
+        }
+    </div>
+

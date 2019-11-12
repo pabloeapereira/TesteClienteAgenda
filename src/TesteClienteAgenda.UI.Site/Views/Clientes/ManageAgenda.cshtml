@@ -1,0 +1,31 @@
+﻿@model TesteClienteAgenda.Application.ViewModels.ClienteViewModel
+
+@{
+    ViewData["Title"] = "Gerenciar Agenda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<input type="hidden" asp-for="Id" />
+
+
+<div class="container">
+    <form asp-action="ManageAgenda" asp-controller="Clientes"
+          asp-route-id="@Model.Id"
+          data-ajax="true"
+          data-ajax-method="POST"
+          data-ajax-mode="replace"
+          data-ajax-update="#list-agendas">
+
+        <label class="control-label">Taxa</label>
+        <input id="taxa" name="Taxa">
+
+        <input type="submit" value="Aplicar" class="btn btn-outline-success" id="btnAplicar"/>
+    </form>
+</div>
+
+
+<div id="list-agendas">
+    @{ await Html.RenderPartialAsync("_ListAgenda"); }
+</div>
