@@ -216,6 +216,13 @@ namespace TesteClienteAgenda.UI.Site.Controllers
             if (cliente.Arquivo != null)
             {
                 cliente = await _clienteAppService.LerArquivoExcelECarregarAgendas(cliente);
+                cliente = await _clienteAppService.ObterPorId(id);
+
+                foreach (var agenda in await _agendaAppService.ObterPorCliente(id))
+                {
+                    cliente.Agendas.Add(agenda);
+                }
+                //return PartialView("_ListAgenda",cliente);
                 return RedirectToAction(nameof(ManageAgenda), new {id = cliente.Id});
             }
 
@@ -248,7 +255,10 @@ namespace TesteClienteAgenda.UI.Site.Controllers
                 cliente.Agendas.Add(agenda);
             }
 
-            return PartialView("_ListAgenda", cliente);
+            return RedirectToAction(nameof(ManageAgenda), new {Id = model.Id});
+            //return PartialView("_ListAgenda", cliente);
+
+
 
         }
 

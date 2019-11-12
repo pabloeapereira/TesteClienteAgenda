@@ -11,20 +11,21 @@
 <input type="hidden" asp-for="Id" />
 
 <div class="container">
-<hr/>
-<dl class="flex-row">
-    <dd>
-        <label class="control-label" id="cnpj">@Html.DisplayFor(model => model.CnpjFormatado) -</label>
-        <label class="control-label">@Html.DisplayFor(model => model.RazaoSocial)</label>
-    </dd>
-</dl>
+    <hr />
+    <dl class="flex-row">
+        <dd>
+            <label class="control-label" id="cnpj">@Html.DisplayFor(model => model.CnpjFormatado) -</label>
+            <label class="control-label">@Html.DisplayFor(model => model.RazaoSocial)</label>
+        </dd>
+    </dl>
+</div>
 
 @{
     if (Model.StatusCliente)
     {
         if (!Model.ExisteAgenda)
         {
-            await Html.RenderPartialAsync("_ImportFile");
+            <partial name="_ImportFile" model="@Model" />
         }
 
         if (Model.ExisteAgenda)
@@ -40,13 +41,14 @@
                     <label class="control-label">Taxa</label>
                     <input id="taxa" name="Taxa">
 
-                    <input type="submit" value="Aplicar" class="btn btn-outline-success" id="btnAplicar" @Html.Raw(this.IfAplicarTaxaShow(@Model.Quarentena))/>
+                    <input type="submit" value="Aplicar" class="btn btn-outline-success" id="btnAplicar" @Html.Raw(this.IfAplicarTaxaShow(@Model.Quarentena)) />
                 </form>
             </div>
-        }
 
-        <div id="list-agendas">
-            @{ await Html.RenderPartialAsync("_ListAgenda"); }
-        </div>
+
+            <div id="list-agendas">
+                <partial name="_ListAgenda" model="@Model" />
+            </div>
+        }
     }
 }
