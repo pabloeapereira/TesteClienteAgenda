@@ -1,4 +1,5 @@
-﻿@model TesteClienteAgenda.Application.ViewModels.ClienteViewModel
+﻿@using TesteClienteAgenda.UI.Site.Helpers
+@model TesteClienteAgenda.Application.ViewModels.ClienteViewModel
 
 @{
     ViewData["Title"] = "Gerenciar Agenda";
@@ -9,23 +10,43 @@
 
 <input type="hidden" asp-for="Id" />
 
-
 <div class="container">
-    <form asp-action="ManageAgenda" asp-controller="Clientes"
-          asp-route-id="@Model.Id"
-          data-ajax="true"
-          data-ajax-method="POST"
-          data-ajax-mode="replace"
-          data-ajax-update="#list-agendas">
+<hr/>
+<dl class="flex-row">
+    <dd>
+        <label class="control-label" id="cnpj">@Html.DisplayFor(model => model.CnpjFormatado) -</label>
+        <label class="control-label">@Html.DisplayFor(model => model.RazaoSocial)</label>
+    </dd>
+</dl>
 
-        <label class="control-label">Taxa</label>
-        <input id="taxa" name="Taxa">
+@{
+    if (Model.StatusCliente)
+    {
+        if (!Model.ExisteAgenda)
+        {
+            await Html.RenderPartialAsync("_ImportFile");
+        }
 
-        <input type="submit" value="Aplicar" class="btn btn-outline-success" id="btnAplicar"/>
-    </form>
-</div>
+        if (Model.ExisteAgenda)
+        {
+            <div class="container">
+                <form asp-action="ManageAgenda" asp-controller="Clientes"
+                      asp-route-id="@Model.Id"
+                      data-ajax="true"
+                      data-ajax-method="POST"
+                      data-ajax-mode="replace"
+                      data-ajax-update="#list-agendas">
 
+                    <label class="control-label">Taxa</label>
+                    <input id="taxa" name="Taxa">
 
-<div id="list-agendas">
-    @{ await Html.RenderPartialAsync("_ListAgenda"); }
-</div>
+                    <input type="submit" value="Aplicar" class="btn btn-outline-success" id="btnAplicar" @Html.Raw(this.IfAplicarTaxaShow(@Model.Quarentena))/>
+                </form>
+            </div>
+        }
+
+        <div id="list-agendas">
+            @{ await Html.RenderPartialAsync("_ListAgenda"); }
+        </div>
+    }
+}

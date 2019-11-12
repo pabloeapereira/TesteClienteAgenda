@@ -6,7 +6,7 @@ using TesteClienteAgenda.Infra.CrossCutting.Helpers.Helpers;
 
 namespace TesteClienteAgenda.Domain.Validations
 {
-    public class CnpjValidation
+    public class CNPJ
     {
         public const int TamanhoCnpj = 14;
 

@@ -19,7 +19,7 @@ namespace TesteClienteAgenda.Application.Attributesc
 
                 var cnpj = value.ToString().Replace(".", "").Replace("/", "").Replace("-", "");
 
-                if (!CnpjValidation.Validar(cnpj))
+                if (!CNPJ.Validar(cnpj))
                     return new ValidationResult(FormatErrorMessage(validationContext.DisplayName));
             }
 

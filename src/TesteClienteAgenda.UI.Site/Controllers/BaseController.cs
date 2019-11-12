@@ -23,5 +23,10 @@ namespace TesteClienteAgenda.UI.Site.Controllers
         {
             return _notificador.ObterNotificacoes();
         }
+
+        protected void InsereErro(string erro)
+        {
+            _notificador.Handle(new Notificacao(erro));
+        }
     }
 }

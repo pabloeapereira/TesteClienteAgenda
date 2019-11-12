@@ -52,6 +52,9 @@ namespace TesteClienteAgenda.UI.Site.Controllers
                 return NotFound();
             }
 
+            if(!cliente.StatusCliente)
+                InsereErro("Cliente Inativo!!!");
+
             foreach (var agenda in await _agendaAppService.ObterPorCliente(id.Value))
             {
                 cliente.Agendas.Add(agenda);

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TesteClienteAgenda.Application.ViewModels.ClienteViewModel>
+﻿@using TesteClienteAgenda.UI.Site.Helpers
+@model IEnumerable<TesteClienteAgenda.Application.ViewModels.ClienteViewModel>
 <table class="table">
     <thead>
     <tr>
@@ -42,14 +43,19 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                <a asp-action="ManageAgenda" asp-route-id="@item.Id">
-                    <img src="icons/ficheiro.png" height="25" width="25" />
-                </a>
+                @{
+                    if (item.StatusCliente)
+                    {
+                        <a asp-action="ManageAgenda" asp-route-id="@item.Id">
+                            <img src="icons/ficheiro.png" height="25" width="25"/>
+                        </a>
+                    }
+                }
                 <a asp-action="Edit" asp-route-id="@item.Id">
-                    <img src="icons/editar.png" height="25" width="25" />
+                    <img src="icons/editar.png" height="25" width="25"/>
                 </a>
                 <a asp-action="Delete" asp-route-id="@item.Id">
-                    <img src="icons/excluir.png" height="25" width="25" />
+                    <img src="icons/excluir.png" height="25" width="25"/>
                 </a>
             </td>
         </tr>
